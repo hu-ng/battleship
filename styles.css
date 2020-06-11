@@ -1,0 +1,47 @@
+.title {
+    font-size: 35;
+}
+
+
+/* Board and game setup */
+
+.board-container {
+    background: white;
+    display: inline-block;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 45px);
+    grid-template-rows: repeat(10, 45px);
+    grid-gap: 0px;
+}
+  
+.cell {
+/* center the cell content */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-family: Arial;
+    font-size: 3rem;
+    font-weight: bold;
+    background: white;
+    border: 1px solid black;
+}
+
+.sea {
+    background: white;
+}
+
+.ship {
+    background: lightblue;
+}
+
+.hit {
+    background: red;
+}
+
+.miss {
+    background: grey;
+}
+

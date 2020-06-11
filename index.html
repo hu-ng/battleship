@@ -3,8 +3,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Battleship</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
+  <div id="root" class="container">
+    <div class="row justify-content-center my-4 title">
+      Battleship
+    </div>
+    <div class="row justify-content-center">
+      <div class="board-container mr-4" id="player-board">
+        <div class="board">
+        </div>
+      </div>
+      <div class="board-container ml-4" id="bot-board">
+        <div class="board">
+        </div>
+      </div>
+    </div>
+
+  </div>
   <script src="./main.js"></script>
 </body>
 </html>
