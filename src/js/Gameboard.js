@@ -6,6 +6,7 @@ const Gameboard = (size) => {
     Sea: null,
     Ship: 0,
     Hit: 1,
+    Miss: 2,
   };
 
   let _board = Array(size)
@@ -45,10 +46,17 @@ const Gameboard = (size) => {
       }
     }
 
+    // Update ending positions
+    if (isHorizontal) {
+      y_end--;
+    } else {
+      x_end--;
+    }
+
     // Update state if there are no errors
     _board = boardCopy;
     _ships.push({
-      ship: new Ship(shipLength),
+      ship: Ship(shipLength),
       start: [x, y],
       end: [x_end, y_end],
     });
@@ -92,6 +100,7 @@ const Gameboard = (size) => {
       _board[x][y] = Token.Hit; // update board
     } else {
       _misses.push([x, y]);
+      _board[x][y] = Token.Miss;
     }
     return attackStatus !== null;
   };

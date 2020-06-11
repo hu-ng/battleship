@@ -8,11 +8,13 @@ const Player = () => {
   const makeMove = (gb, x, y) => {
     const board = gb.getBoard();
     const boardTokens = gb.getTokens();
-    if (board[x][y] !== boardTokens.Hit) {
+    if (board[x][y] !== boardTokens.Hit || board[x][y] !== boardTokens.Miss) {
       gb.receiveAttack(x, y);
     } else {
       throw new Error("An attack already exists here. Choose another spot");
     }
+
+    console.log(gb.getBoard(), id);
   };
 
   return { getId, makeMove };
