@@ -7,17 +7,114 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-  <div id="root" class="container">
+  <div id="root" class="container-fluid">
     <div class="row justify-content-center my-4 title">
       Battleship
     </div>
+    <div class="row justify-content-center" id="gameStatus"></div>
     <div class="row justify-content-center">
-      <div class="board-container mr-4" id="player-board">
-        <div class="board">
-        </div>
+      <div class="col-3 mr-3">
+        <form action="">
+          <legend>Place your ships</legend>
+          <p>Tick the boxes if you want to place ship horizontally</p>
+          <!-- Carrier -->
+          <div class="form-group row">
+            <label for="carrier" class="col-sm-6 col-form-label label-fmt">Carrier (5 spaces)</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="carrier-x" placeholder="X">
+            </div>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="carrier-y" placeholder="Y">
+            </div>
+            <div class="col-sm-2">
+              <input type="checkbox" class="form-control" id="carrier-horizontal">
+            </div>
+          </div>
+
+          <!-- Battleship -->
+          <div class="form-group row">
+            <label for="battleship" class="col-sm-6 col-form-label label-fmt">Battleship (4 spaces)</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="battleship-x" placeholder="X">
+            </div>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="battleship-y" placeholder="Y">
+            </div>
+            <div class="col-sm-2">
+              <input type="checkbox" class="form-control" id="battleship-horizontal">
+            </div>
+          </div>
+
+          <!-- Cruiser -->
+          <div class="form-group row">
+            <label for="cruiser" class="col-sm-6 col-form-label label-fmt">Cruiser (3 spaces)</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="cruiser-x" placeholder="X">
+            </div>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="cruiser-y" placeholder="Y">
+            </div>
+            <div class="col-sm-2">
+              <input type="checkbox" class="form-control" id="cruiser-horizontal">
+            </div>
+          </div>
+
+          <!-- Submarine -->
+          <div class="form-group row">
+            <label for="submarine" class="col-sm-6 col-form-label label-fmt">Submarine (3 spaces)</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="submarine-x" placeholder="X">
+            </div>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="submarine-y" placeholder="Y">
+            </div>
+            <div class="col-sm-2">
+              <input type="checkbox" class="form-control" id="submarine-horizontal">
+            </div>
+          </div>
+
+          <!-- Destroyer -->
+          <div class="form-group row">
+            <label for="destroyer" class="col-sm-6 col-form-label label-fmt">Destroyer (2 spaces)</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="destroyer-x" placeholder="X">
+            </div>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" id="destroyer-y" placeholder="Y">
+            </div>
+            <div class="col-sm-2">
+              <input type="checkbox" class="form-control" id="destroyer-horizontal">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-sm-6">
+              <button id="place-ship">Place Ship</button>
+            </div>
+            <div class="col-sm-6">
+              <button id="start-game">Start Game</button>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="board-container ml-4" id="bot-board">
-        <div class="board">
+
+      <!-- Boards -->
+      <div class="col-8-lg ml-4">
+        <div class="row">
+          <div class="col-4-lg mr-2">
+            <div class="row justify-content-center board-name">Player Board</div>
+            <div class="row board-container mr-4" id="player-board">
+              <div class="board">
+              </div>
+            </div>
+          </div>
+          <div class="col-4-lg ml-2">
+            <div class="row justify-content-center board-name">Bot Board</div>
+            <div class="row board-container mr-4" id="bot-board">
+              <div class="board">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

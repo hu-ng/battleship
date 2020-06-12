@@ -1,7 +1,10 @@
+* {
+    font-family: monospace;
+}
+
 .title {
     font-size: 35;
 }
-
 
 /* Board and game setup */
 
@@ -12,9 +15,14 @@
 
 .board {
     display: grid;
-    grid-template-columns: repeat(10, 45px);
-    grid-template-rows: repeat(10, 45px);
+    grid-template-columns: repeat(11, 45px);
+    grid-template-rows: repeat(11, 45px);
     grid-gap: 0px;
+}
+
+.board-name {
+    font-size: 1.25rem;
+    font-weight: bold;
 }
   
 .cell {
@@ -22,10 +30,13 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    font-family: Arial;
-    font-size: 3rem;
+    font-family: monospace  ;
+    font-size: 1.5em;
     font-weight: bold;
     background: white;
+}
+
+.cell-border {
     border: 1px solid black;
 }
 
@@ -45,3 +56,6 @@
     background: grey;
 }
 
+.label-fmt {
+    font-size: 1.2em !important;
+}
