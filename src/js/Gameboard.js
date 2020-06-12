@@ -34,14 +34,15 @@ const Gameboard = (size) => {
     let boardCopy = _.cloneDeep(_board);
     let x_end = x;
     let y_end = y;
+    let err;
 
     for (let i = 0; i < shipLength; i++) {
       if (x_end > size - 1 || y_end > size - 1) {
-        throw new Error("Placement is out of bounds");
+        err = new Error("Placement is out of bounds");
       }
 
       if (boardCopy[x_end][y_end] === Token.Ship) {
-        throw new Error("Overlapping Ship");
+        err = new Error("Overlapping Ship");
       }
 
       boardCopy[x_end][y_end] = Token.Ship;
@@ -66,6 +67,8 @@ const Gameboard = (size) => {
       start: [x, y],
       end: [x_end, y_end],
     });
+
+    return err;
   };
 
   const _isShipHit = (shipRec, x, y) => {

@@ -1,7 +1,7 @@
 import Gameboard from "./Gameboard";
 import Player from "./Player";
 import Client from "./client";
-import { startCase } from "lodash";
+import _ from "lodash";
 
 const Game = (function (client) {
   const _player = Player();
@@ -53,6 +53,13 @@ const Game = (function (client) {
       client.showWinner(gameStatus);
     }
     _playerTurn = !_playerTurn;
+
+    // Bot moving
+    if (!_playerTurn) {
+      botMove();
+      updateBoard();
+      _playerTurn = !_playerTurn;
+    }
   };
 
   const updateBoard = () => {
@@ -64,17 +71,18 @@ const Game = (function (client) {
       );
     } else {
       console.log("bot turn");
+      // client.renderBoard(_playerBoard, playerBoardElem);
+      // client.bindAttackHandler(playerBoardElem, nextTurn, (x, y) =>
+      //   _bot.makeMove(_playerBoard, x, y)
+      // );
       client.renderBoard(_playerBoard, playerBoardElem);
-      client.bindAttackHandler(playerBoardElem, nextTurn, (x, y) =>
-        _bot.makeMove(_playerBoard, x, y)
-      );
     }
   };
 
   function start() {
-    client.bindAttackHandler(playerBoardElem, nextTurn, (x, y) =>
-      _bot.makeMove(_playerBoard, x, y)
-    );
+    // client.bindAttackHandler(playerBoardElem, nextTurn, (x, y) =>
+    //   _bot.makeMove(_playerBoard, x, y)
+    // );
 
     client.bindAttackHandler(botBoardElem, nextTurn, (x, y) =>
       _player.makeMove(_botBoard, x, y)
@@ -84,6 +92,17 @@ const Game = (function (client) {
   function showBoard() {
     client.renderBoard(_playerBoard, playerBoardElem);
     client.renderBoard(_botBoard, botBoardElem, true);
+  }
+
+  function botMove() {
+    let x = _.random(0, 9);
+    let y = _.random(0, 9);
+    let err = _bot.makeMove(_playerBoard, x, y);
+    while (err) {
+      let x = _.random(0, 9);
+      let y = _.random(0, 9);
+      err = _bot.makeMove(_playerBoard, x, y);
+    }
   }
 
   return { showBoard };

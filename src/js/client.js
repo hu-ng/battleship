@@ -48,8 +48,13 @@ const Client = (() => {
     for (const cell of cells) {
       cell.addEventListener("click", (event) => {
         console.log("clicked");
-        attackCellHandler(event.target.dataset.row, event.target.dataset.col);
-        switchTurn();
+        let err = attackCellHandler(
+          event.target.dataset.row,
+          event.target.dataset.col
+        );
+        if (!err) {
+          switchTurn();
+        }
       });
     }
   };

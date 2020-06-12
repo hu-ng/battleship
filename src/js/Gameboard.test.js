@@ -85,14 +85,14 @@ describe("placeship()", () => {
 
   test("should not place a ship when it overlaps with another ship", () => {
     gameboard.placeShip(3, 0, 0, true);
-    expect(() => gameboard.placeShip(2, 0, 0, false)).toThrow(
-      "Overlapping Ship"
+    expect(gameboard.placeShip(2, 0, 0, false)).toEqual(
+      new Error("Overlapping Ship")
     );
   });
 
   test("should not place a ship when ship is out of bounds", () => {
-    expect(() => gameboard.placeShip(3, 0, 9, true)).toThrow(
-      "Placement is out of bounds"
+    expect(gameboard.placeShip(3, 0, 9, true)).toEqual(
+      new Error("Placement is out of bounds")
     );
   });
 });
