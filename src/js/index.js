@@ -1,6 +1,7 @@
 import Gameboard from "./Gameboard";
 import Player from "./Player";
 import Client from "./client";
+import { startCase } from "lodash";
 
 const Game = (function (client) {
   const _player = Player();
@@ -8,12 +9,7 @@ const Game = (function (client) {
   const _playerBoard = Gameboard(10);
   const _botBoard = Gameboard(10);
 
-  // Set up a fixed board for both players
-  _playerBoard.placeShip(5, 1, 0, true);
-  _playerBoard.placeShip(4, 3, 1, false);
-  _playerBoard.placeShip(3, 4, 5, true);
-  _playerBoard.placeShip(3, 7, 5, false);
-  _playerBoard.placeShip(2, 6, 8, false);
+  // botBoard has fixed ships for now
 
   _botBoard.placeShip(5, 1, 0, true);
   _botBoard.placeShip(4, 3, 1, false);
@@ -25,52 +21,57 @@ const Game = (function (client) {
     .firstElementChild;
   const botBoardElem = document.getElementById("bot-board").firstElementChild;
 
+  client.bindPlaceShipHandler(
+    _playerBoard.placeShip,
+    _playerBoard.resetBoard,
+    () => client.renderBoard(_playerBoard, playerBoardElem)
+  );
+
+  client.bindStartHandler(start);
+
   let _playerTurn = true;
 
   const checkGameStatus = () => {
-    playerWon = _botBoard.allShipsSunk();
-    botWon = _playerBoard.allShipsSunk();
+    const playerWon = _botBoard.allShipsSunk();
+    const botWon = _playerBoard.allShipsSunk();
 
     if (playerWon) {
-      return true, "Player Won!";
+      return "Player Won!";
     }
 
     if (botWon) {
-      return true, "Bot Won!";
+      return "Bot Won!";
     }
 
     return false;
-  };
-
-  const updateBoard = () => {
-    if (_playerTurn) {
-      console.log("player turn");
-      client.renderBoard(_botBoard, botBoardElem);
-      client.bindAttackHandler(botBoardElem, switchTurn, (x, y) =>
-        _player.makeMove(_botBoard, x, y)
-      );
-    } else {
-      console.log("bot turn");
-      client.renderBoard(_playerBoard, playerBoardElem);
-      client.bindAttackHandler(playerBoardElem, switchTurn, (x, y) =>
-        _bot.makeMove(_playerBoard, x, y)
-      );
-    }
   };
 
   const nextTurn = () => {
     updateBoard();
     let gameStatus = checkGameStatus();
     if (gameStatus) {
-      client.showWinner(gameStatus[1]);
+      client.showWinner(gameStatus);
     }
     _playerTurn = !_playerTurn;
   };
 
-  const start = () => {
-    client.renderBoard(_playerBoard, playerBoardElem);
-    client.renderBoard(_botBoard, botBoardElem);
+  const updateBoard = () => {
+    if (_playerTurn) {
+      console.log("player turn");
+      client.renderBoard(_botBoard, botBoardElem, true);
+      client.bindAttackHandler(botBoardElem, nextTurn, (x, y) =>
+        _player.makeMove(_botBoard, x, y)
+      );
+    } else {
+      console.log("bot turn");
+      client.renderBoard(_playerBoard, playerBoardElem);
+      client.bindAttackHandler(playerBoardElem, nextTurn, (x, y) =>
+        _bot.makeMove(_playerBoard, x, y)
+      );
+    }
+  };
 
+  function start() {
     client.bindAttackHandler(playerBoardElem, nextTurn, (x, y) =>
       _bot.makeMove(_playerBoard, x, y)
     );
@@ -78,9 +79,14 @@ const Game = (function (client) {
     client.bindAttackHandler(botBoardElem, nextTurn, (x, y) =>
       _player.makeMove(_botBoard, x, y)
     );
-  };
+  }
 
-  return { start };
+  function showBoard() {
+    client.renderBoard(_playerBoard, playerBoardElem);
+    client.renderBoard(_botBoard, botBoardElem, true);
+  }
+
+  return { showBoard };
 })(Client);
 
-Game.start();
+Game.showBoard();

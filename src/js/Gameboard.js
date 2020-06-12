@@ -14,7 +14,7 @@ const Gameboard = (size) => {
     .map(() => Array(size).fill(Token.Sea));
 
   const _misses = [];
-  const _ships = [];
+  let _ships = [];
 
   // Queries
   const getBoard = () => _board;
@@ -22,6 +22,12 @@ const Gameboard = (size) => {
   const getShips = () => _ships;
   const getTokens = () => Token;
   const allShipsSunk = () => _ships.every((shipRec) => shipRec.ship.isSunk());
+  const resetBoard = () => {
+    _ships = [];
+    _board = Array(size)
+      .fill()
+      .map(() => Array(size).fill(Token.Sea));
+  };
 
   // Commands
   const placeShip = (shipLength, x, y, isHorizontal) => {
@@ -109,6 +115,7 @@ const Gameboard = (size) => {
     getMisses,
     getBoard,
     getShips,
+    resetBoard,
     getTokens,
     allShipsSunk,
     placeShip,
